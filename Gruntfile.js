@@ -29,7 +29,7 @@ module.exports = function(grunt) {
     },
 
     // Configuration to be run (and then tested).
-    mswebdeploy_package: {
+    webdeploy: {
       default_options: {
         options: {
         },
@@ -65,9 +65,9 @@ module.exports = function(grunt) {
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['clean', 'mswebdeploy_package', 'nodeunit']);
+  grunt.registerTask('test', ['clean', 'webdeploy', 'nodeunit']);
 
   // By default, lint and run all tests.
-  grunt.registerTask('default', ['jshint', 'test']);
+  grunt.registerTask('default', ['jshint', 'webdeploy']);
 
 };
