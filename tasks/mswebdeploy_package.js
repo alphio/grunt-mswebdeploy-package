@@ -1,6 +1,6 @@
 /*
  * grunt-mswebdeploy-package
- * https://github.com/noah/grunt-webdeploy-package
+ * https://github.com/alphio/grunt-mswebdeploy-package
  *
  * Copyright (c) 2015 NOAH HAMBAYI
  * Licensed under the MIT license.

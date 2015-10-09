@@ -2,7 +2,7 @@
   "name": "grunt-mswebdeploy-package",
   "description": "Create Microsoft(TM) web deploy packages with grunt",
   "version": "0.1.0",
-  "homepage": "https://github.com/noah/grunt-webdeploy-package",
+  "homepage": "https://github.com/alphio/grunt-mswebdeploy-package",
   "author": {
     "name": "NOAH HAMBAYI",
     "email": "nhambayi@gmail.com",
@@ -13,12 +13,12 @@
     "url": "git://github.com/noah/grunt-webdeploy-package.git"
   },
   "bugs": {
-    "url": "https://github.com/noah/grunt-webdeploy-package/issues"
+    "url": "https://github.com/alphio/grunt-mswebdeploy-package/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/noah/grunt-webdeploy-package/blob/master/LICENSE-MIT"
+      "url": "https://github.com/alphio/grunt-mswebdeploy-package/blob/master/LICENSE-MIT"
     }
   ],
   "engines": {
