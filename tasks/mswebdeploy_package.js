@@ -13,7 +13,9 @@ module.exports = function(grunt) {
   // Please see the Grunt documentation for more information regarding task
   // creation: http://gruntjs.com/creating-tasks
 
-  grunt.registerMultiTask('mswebdeploy_package', 'Create Microsoft(TM) web deploy packages with grunt', function() {
+  grunt.registerMultiTask('webdeploy', 
+  'Create Microsoft(TM) web deploy packages with grunt', 
+  function() {
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
       punctuation: '.',
