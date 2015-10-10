@@ -25,13 +25,13 @@ module.exports = function(grunt) {
         { 
           enabled : true,
           outputPath : 'webdeploy/',
-          sourcePath : 'fixtures',
+          sourcePath : 'dist',
           packageName : 'webdeploy.zip'
         });
         
         
         mkdirp(options.outputPath, function(err) { 
-
+            grunt.log.writeln("failed to create folder " + options.outputPath);
         });
       
       if(options.enabled){
@@ -42,7 +42,7 @@ module.exports = function(grunt) {
         
         output.on('close', function () {
           grunt.log.writeln(archive.pointer() + ' total bytes');
-          grunt.log.writeln('archiver has been finalized and the output file descriptor has closed.');
+          grunt.log.writeln(options.outputPath + options.packageName + ' created');
           done(true);
         });
 
@@ -53,12 +53,9 @@ module.exports = function(grunt) {
 
         archive.pipe(output);
         grunt.log.writeln('starting archive...');
-        archive.directory('node_modules');
+        archive.directory(options.sourcePath);
           
-        archive.finalize();
-        grunt.log.writeln('complete.');
-        
-        
+        archive.finalize();      
       }
   });
 
