@@ -16,6 +16,7 @@ module.exports = function(grunt) {
   var fileSystem = require("fs");
   var archiver = require('archiver');
   var mkdirp = require('mkdirp');
+  var builder = require('xmlbuilder');
   
   grunt.registerMultiTask('webdeploy', 
   'Create Microsoft(TM) web deploy packages with grunt', 
@@ -28,6 +29,11 @@ module.exports = function(grunt) {
           sourcePath : 'dist',
           packageName : 'webdeploy.zip'
         });
+        
+        var xml = builder.create('root')
+          .ele('xmlbuilder', {'for': 'node-js'})
+            .ele('repo', {'type': 'git'}, 'git://github.com/oozcitak/xmlbuilder-js.git')
+          .end({ pretty: true});
         
         
         mkdirp(options.outputPath, function(err) { 
@@ -54,7 +60,7 @@ module.exports = function(grunt) {
         archive.pipe(output);
         grunt.log.writeln('starting archive...');
         archive.directory(options.sourcePath);
-          
+        archive.append(xml, { name:'file.xml' });
         archive.finalize();      
       }
   });
