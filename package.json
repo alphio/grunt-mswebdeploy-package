@@ -40,7 +40,9 @@
     "gruntplugin"
   ],
   "dependencies": {
-    "node-zip": "^1.1.1",
+    "archiver": "^0.15.1",
+    "easy-zip": "0.0.4",
+    "mkdirp": "^0.5.1",
     "xmldoc": "^0.3.2"
   }
 }

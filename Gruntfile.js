@@ -30,18 +30,17 @@ module.exports = function(grunt) {
 
     // Configuration to be run (and then tested).
     webdeploy: {
-      default_options: {
-        options: {
-        },
+      defualt_options: {
         files: {
-          'tmp/default_options': ['test/fixtures/testing', 'test/fixtures/123']
+          'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123']
         }
       },
       custom_options: {
-        options: {
-          separator: ': ',
-          punctuation: ' !!!'
-        },
+          options : {
+          outputPath : 'build/',
+          sourcePath : 'test/',
+          packageName : 'test.zip',
+          },
         files: {
           'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123']
         }

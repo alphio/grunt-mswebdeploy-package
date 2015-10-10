@@ -13,19 +13,53 @@ module.exports = function(grunt) {
   // Please see the Grunt documentation for more information regarding task
   // creation: http://gruntjs.com/creating-tasks
 
+  var fileSystem = require("fs");
+  var archiver = require('archiver');
+  var mkdirp = require('mkdirp');
+  
   grunt.registerMultiTask('webdeploy', 
   'Create Microsoft(TM) web deploy packages with grunt', 
   function() {
-    // Merge task-specific and/or target-specific options with these defaults.
-    var options = this.options({
-      "packageName" : "webdeploy.zip"
-    });
+      var done = this.async();
+      var options = this.options(
+        { 
+          enabled : true,
+          outputPath : 'webdeploy/',
+          sourcePath : 'fixtures',
+          packageName : 'webdeploy.zip'
+        });
+        
+        
+        mkdirp(options.outputPath, function(err) { 
 
-    // Iterate over all specified file groups.
-    this.files.forEach(function(f) {
-      // Concat specified files.
-        grunt.log.writeln('File "' + f.dest + '" created.');
-    });
+        });
+      
+      if(options.enabled){
+        grunt.log.writeln('Creating web deploy package "' + options.outputPath + options.packageName + '" from the directory "' + options.sourcePath + '"');
+        
+        var output = fileSystem.createWriteStream(options.outputPath + options.packageName);
+        var archive = archiver('zip');
+        
+        output.on('close', function () {
+          grunt.log.writeln(archive.pointer() + ' total bytes');
+          grunt.log.writeln('archiver has been finalized and the output file descriptor has closed.');
+          done(true);
+        });
+
+        archive.on('error', function(err){
+            grunt.log.writeln(err.toString());
+            done(false);
+        });
+
+        archive.pipe(output);
+        grunt.log.writeln('starting archive...');
+        archive.directory('node_modules');
+          
+        archive.finalize();
+        grunt.log.writeln('complete.');
+        
+        
+      }
   });
 
 };
