@@ -29,16 +29,16 @@ module.exports = function(grunt) {
     },
 
     // Configuration to be run (and then tested).
-    msdeploy: {
+    mswebdeploy: {
       defualt_options: {
         options :  {
           source : 'node_modules',
-          dest : 'build/test/'
+          dest : 'build'
         }
       },
       custom_options: {
           options : {
-          'dest' : 'build/',
+          'dest' : 'build',
           'source' : 'test',
           'package' : 'test.zip',
           }
@@ -62,9 +62,9 @@ module.exports = function(grunt) {
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['clean', 'msdeploy', 'nodeunit']);
+  grunt.registerTask('test', ['clean', 'mswebdeploy', 'nodeunit']);
 
   // By default, lint and run all tests.
-  grunt.registerTask('default', ['jshint', 'msdeploy']);
+  grunt.registerTask('default', ['jshint', 'mswebdeploy']);
 
 };
