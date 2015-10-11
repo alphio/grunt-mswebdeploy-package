@@ -1,5 +1,5 @@
 {
-  "name": "grunt-mswebdeploy-package",
+  "name": "grunt-mswebdeploy",
   "description": "Create Microsoft(TM) web deploy packages with grunt",
   "version": "0.1.0",
   "homepage": "https://github.com/alphio/grunt-mswebdeploy-package",

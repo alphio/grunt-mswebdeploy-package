@@ -14,17 +14,17 @@ npm install grunt-msdeploy --save-dev
 Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
 
 ```js
-grunt.loadNpmTasks('grunt-msdeploy');
+grunt.loadNpmTasks('grunt-mswebdeploy');
 ```
 
-## The "grunt-msdeploy" task
+## The "grunt-mswebdeploy" task
 
 ### Overview
-In your project's Gruntfile, add a section named `grunt-msdeploy` to the data object passed into `grunt.initConfig()`.
+In your project's Gruntfile, add a section named `mswebdeploy` to the data object passed into `grunt.initConfig()`.
 
 ```js
 grunt.initConfig({
-  msdeploy: {
+  mswebdeploy: {
     options: {
       options : {
           'dest' : 'build/',
@@ -40,7 +40,7 @@ grunt.initConfig({
 
 #### options.dest
 Type: `String`
-Default value: `',  '`
+Default value: `'depoy '`
 
 A string value that is used to do something with whatever.
 
@@ -52,7 +52,7 @@ A string value that is used to do something else with whatever else.
 
 #### options.source
 Type: `String`
-Default value: `'.'`
+Default value: `'dist'`
 
 A string value that is used to do something else with whatever else.
 
@@ -63,7 +63,7 @@ In this example, the default options are used to do something with whatever. So 
 
 ```js
 grunt.initConfig({
-  msdepoy: {
+  mswebdeploy: {
     options : {
           'dest' : 'build/',
           'source' : 'test',
@@ -78,7 +78,7 @@ In this example, custom options are used to do something else with whatever else
 
 ```js
 grunt.initConfig({
-  mswebdeploy_package: {
+  mswebdeploy: {
     options: {
       options : {
           'dest' : 'build/',
@@ -94,5 +94,5 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-_(Nothing yet)_
+0.10.0 : Beta Release
 # grunt-msdeploy-package
