@@ -18,35 +18,21 @@ module.exports = function(grunt) {
   var mkdirp = require('mkdirp');
   var builder = require('xmlbuilder');
   
-  function generateSystemInfoXml(){
+  function generateManifestXml(options){
     var system_info_xml = builder.create(
-      {'systemInfo': {
-          '@osVserion' : '6.3',
-          '@winDir' : 'c:\\windows',
-          '@machineName' : 'NODE-MACHINE',
-          '@processorArchitecture' : 'x64',
-          '@msdeployVersion' :'1.0',
-          '@buildVersion' :'7.1.1955.0',
-          'iisSystemInfo': {
-            '@iisMajorVersion': '0',
-            '@iisMinorVersion' : '0',
-            'aspNetVersionInfo' : {
-              'aspNetVersion' : {'@version' : '2.0.50727.0'}
-            }
-          }
+      {'msdeploy.iisApp': {
+        'iisApp' : {
+          '@path' : options.source
+        }
+
         }
       }).end({ pretty: true});
           
     return system_info_xml;
   }
   
-  function generateArchiveXml(){
-    var archive_xml = builder.create({"MSDeploy.contentPath" : {
-      "contentPath" : {
-        "MSDeploy.dirPath" : {
-          "@path" : "c:\\home"
-        }
-      }
+  function generateParametersXml(options){
+    var archive_xml = builder.create({"parameters" : {
     }
       
     }).end({ pretty: true});
@@ -68,18 +54,18 @@ module.exports = function(grunt) {
         });
         
       if(options.enabled){
-        mkdirp(options.outputPath, function(err) { 
-            grunt.log.writeln("failed to create folder " + options.outputPath);
+        mkdirp(options.dest, function(err) { 
+            grunt.log.writeln("failed to create folder " + options.dest);
         });
         
-        grunt.log.writeln('Creating web deploy package "' + options.output + options.package + '" from the directory "' + options.sourcePath + '"');
+        grunt.log.writeln('Creating web deploy package "' + options.dest + options.package + '" from the directory "' + options.source + '"');
         
-        var output = fileSystem.createWriteStream(options.outputPath + options.package);
+        var output = fileSystem.createWriteStream(options.dest + options.package);
         var archive = archiver('zip');
         
         output.on('close', function () {
           grunt.log.writeln(archive.pointer() + ' total bytes');
-          grunt.log.writeln(options.outputPath + options.packageName + ' created');
+          grunt.log.writeln(options.dest + options.package + ' created');
           done(true);
         });
 
@@ -90,9 +76,9 @@ module.exports = function(grunt) {
 
         archive.pipe(output);
         grunt.log.writeln('starting archive...');
-        archive.directory(options.sourcePath);
-        archive.append(generateArchiveXml(), { name:'archive.xml' });
-        archive.append( generateSystemInfoXml(), { name:'systeminfo.xml' });
+        archive.directory(options.source);
+        archive.append(generateParametersXml(options), { name:'parameters.xml' });
+        archive.append( generateManifestXml(options), { name:'manifest.xml' });
         archive.finalize();      
       }
   });
