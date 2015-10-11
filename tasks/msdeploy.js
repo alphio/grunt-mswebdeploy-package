@@ -17,6 +17,7 @@ module.exports = function(grunt) {
   var archiver = require('archiver');
   var mkdirp = require('mkdirp');
   var builder = require('xmlbuilder');
+  var _ = require("lodash");
   
   function generateManifestXml(options){
     var system_info_xml = builder.create(
@@ -47,15 +48,23 @@ module.exports = function(grunt) {
         { 
           verb : "sync",
           dest : "webdeploy/",
-          source : 'dist',
+          source : 'dist/',
           "package" : 'webdeploy.zip',
           includeAcls : false,
           enabled : true
         });
+       
+        if( !_.endsWith(options.source, '/') ){
+          options.source = options.source + "/"; 
+        }
+        
+        if(!_.endsWith(options.dest, '/') ){
+          options.dest = options.dest + "/"; 
+        }
         
       if(options.enabled){
         mkdirp(options.dest, function(err) { 
-            grunt.log.writeln("failed to create folder " + options.dest);
+            grunt.log.writeln("failed to create folder " + options.dest + " or the directory already exists.");
         });
         
         grunt.log.writeln('Creating web deploy package "' + options.dest + options.package + '" from the directory "' + options.source + '"');
