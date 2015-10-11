@@ -32,22 +32,16 @@ module.exports = function(grunt) {
     msdeploy: {
       defualt_options: {
         options :  {
-          sourcePath : 'node_modules',
-          outputPath : 'build/test/'
-        },
-        files: {
-          'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123']
+          source : 'node_modules',
+          dest : 'build/test/'
         }
       },
       custom_options: {
           options : {
-          outputPath : 'build/sample/',
-          sourcePath : 'test/',
-          packageName : 'test.zip',
-          },
-        files: {
-          'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123']
-        }
+          'dest' : 'build/',
+          'source' : 'test',
+          'package' : 'test.zip',
+          }
       }
     },
 

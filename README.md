@@ -26,24 +26,31 @@ In your project's Gruntfile, add a section named `grunt-msdeploy` to the data ob
 grunt.initConfig({
   msdeploy: {
     options: {
-      // Task-specific options go here.
-    },
-    your_target: {
-      // Target-specific file lists and/or options go here.
-    },
+      options : {
+          'dest' : 'build/',
+          'source' : 'test',
+          'package' : 'test.zip',
+          }
+    }
   },
 });
 ```
 
 ### Options
 
-#### options.separator
+#### options.dest
 Type: `String`
 Default value: `',  '`
 
 A string value that is used to do something with whatever.
 
-#### options.punctuation
+#### options.source
+Type: `String`
+Default value: `'.'`
+
+A string value that is used to do something else with whatever else.
+
+#### options.source
 Type: `String`
 Default value: `'.'`
 
@@ -57,10 +64,11 @@ In this example, the default options are used to do something with whatever. So 
 ```js
 grunt.initConfig({
   msdepoy: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
+    options : {
+          'dest' : 'build/',
+          'source' : 'test',
+          'package' : 'test.zip',
+          },
   },
 });
 ```
@@ -72,12 +80,12 @@ In this example, custom options are used to do something else with whatever else
 grunt.initConfig({
   mswebdeploy_package: {
     options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
+      options : {
+          'dest' : 'build/',
+          'source' : 'test',
+          'package' : 'test.zip',
+          }
+    }
   },
 });
 ```
