@@ -24,7 +24,7 @@ In your project's Gruntfile, add a section named `mswebdeploy_package` to the da
 
 ```js
 grunt.initConfig({
-  mswebdeploy_package: {
+  msdeploy: {
     options: {
       // Task-specific options go here.
     },
@@ -56,7 +56,7 @@ In this example, the default options are used to do something with whatever. So 
 
 ```js
 grunt.initConfig({
-  mswebdeploy_package: {
+  msdepoy: {
     options: {},
     files: {
       'dest/default_options': ['src/testing', 'src/123'],

@@ -18,32 +18,56 @@ module.exports = function(grunt) {
   var mkdirp = require('mkdirp');
   var builder = require('xmlbuilder');
   
-  grunt.registerMultiTask('webdeploy', 
+  function generateSystemInfoXml(){
+    var system_info_xml = builder.create(
+      {'systemInfo': {
+          '@osVserion' : '6.3',
+          '@winDir' : 'c:\\windows',
+          '@machineName' : 'NODE-MACHINE',
+          '@processorArchitecture' : 'x64',
+          '@msdeployVersion' :'1.0',
+          '@buildVersion' :'7.1.1955.0',
+          'iisSystemInfo': {
+            '@iisMajorVersion': '0',
+            '@iisMinorVersion' : '0',
+            'aspNetVersionInfo' : {
+              'aspNetVersion' : {'@version' : '2.0.50727.0'}
+            }
+          }
+        }
+      }).end({ pretty: true});
+          
+    return system_info_xml;
+  }
+  
+  grunt.registerMultiTask('msdeploy', 
   'Create Microsoft(TM) web deploy packages with grunt', 
   function() {
       var done = this.async();
       var options = this.options(
         { 
-          enabled : true,
-          outputPath : 'webdeploy/',
-          sourcePath : 'dist',
-          packageName : 'webdeploy.zip'
+          verb : "sync",
+          dest : "webdeploy/",
+          source : 'dist',
+          "package" : 'webdeploy.zip',
+          includeAcls : false,
+          enabled : true
         });
         
-        var xml = builder.create('root')
+        
+        var archive_xml = builder.create('root')
           .ele('xmlbuilder', {'for': 'node-js'})
             .ele('repo', {'type': 'git'}, 'git://github.com/oozcitak/xmlbuilder-js.git')
           .end({ pretty: true});
-        
-        
+          
         mkdirp(options.outputPath, function(err) { 
             grunt.log.writeln("failed to create folder " + options.outputPath);
         });
       
       if(options.enabled){
-        grunt.log.writeln('Creating web deploy package "' + options.outputPath + options.packageName + '" from the directory "' + options.sourcePath + '"');
+        grunt.log.writeln('Creating web deploy package "' + options.output + options.package + '" from the directory "' + options.sourcePath + '"');
         
-        var output = fileSystem.createWriteStream(options.outputPath + options.packageName);
+        var output = fileSystem.createWriteStream(options.outputPath + options.package);
         var archive = archiver('zip');
         
         output.on('close', function () {
@@ -60,7 +84,8 @@ module.exports = function(grunt) {
         archive.pipe(output);
         grunt.log.writeln('starting archive...');
         archive.directory(options.sourcePath);
-        archive.append(xml, { name:'file.xml' });
+        archive.append(archive_xml, { name:'archive.xml' });
+        archive.append( generateSystemInfoXml(), { name:'systeminfo.xml' });
         archive.finalize();      
       }
   });
