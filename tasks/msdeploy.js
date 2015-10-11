@@ -40,6 +40,19 @@ module.exports = function(grunt) {
     return system_info_xml;
   }
   
+  function generateArchiveXml(){
+    var archive_xml = builder.create({"MSDeploy.contentPath" : {
+      "contentPath" : {
+        "MSDeploy.dirPath" : {
+          "@path" : "c:\\home"
+        }
+      }
+    }
+      
+    }).end({ pretty: true});
+     return archive_xml;
+  }
+  
   grunt.registerMultiTask('msdeploy', 
   'Create Microsoft(TM) web deploy packages with grunt', 
   function() {
@@ -54,17 +67,11 @@ module.exports = function(grunt) {
           enabled : true
         });
         
-        
-        var archive_xml = builder.create('root')
-          .ele('xmlbuilder', {'for': 'node-js'})
-            .ele('repo', {'type': 'git'}, 'git://github.com/oozcitak/xmlbuilder-js.git')
-          .end({ pretty: true});
-          
+      if(options.enabled){
         mkdirp(options.outputPath, function(err) { 
             grunt.log.writeln("failed to create folder " + options.outputPath);
         });
-      
-      if(options.enabled){
+        
         grunt.log.writeln('Creating web deploy package "' + options.output + options.package + '" from the directory "' + options.sourcePath + '"');
         
         var output = fileSystem.createWriteStream(options.outputPath + options.package);
@@ -84,7 +91,7 @@ module.exports = function(grunt) {
         archive.pipe(output);
         grunt.log.writeln('starting archive...');
         archive.directory(options.sourcePath);
-        archive.append(archive_xml, { name:'archive.xml' });
+        archive.append(generateArchiveXml(), { name:'archive.xml' });
         archive.append( generateSystemInfoXml(), { name:'systeminfo.xml' });
         archive.finalize();      
       }
