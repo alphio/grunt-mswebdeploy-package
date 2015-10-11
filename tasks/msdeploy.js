@@ -39,7 +39,7 @@ module.exports = function(grunt) {
      return archive_xml;
   }
   
-  grunt.registerMultiTask('msdeploy', 
+  grunt.registerMultiTask('mswebdeploy', 
   'Create Microsoft(TM) web deploy packages with grunt', 
   function() {
       var done = this.async();

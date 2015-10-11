@@ -29,7 +29,7 @@ module.exports = function(grunt) {
     },
 
     // Configuration to be run (and then tested).
-    msdeploy: {
+    mswebdeploy: {
       defualt_options: {
         options :  {
           source : 'node_modules',
