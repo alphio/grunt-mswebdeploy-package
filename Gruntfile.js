@@ -34,20 +34,14 @@ module.exports = function(grunt) {
         options :  {
           source : 'node_modules',
           dest : 'build/test/'
-        },
-        files: {
-          'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123']
         }
       },
       custom_options: {
           options : {
-          dest : 'build/sample/',
-          source : 'test',
+          'dest' : 'build/',
+          'source' : 'test',
           'package' : 'test.zip',
-          },
-        files: {
-          'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123']
-        }
+          }
       }
     },
 
