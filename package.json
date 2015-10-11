@@ -1,12 +1,12 @@
 {
   "name": "grunt-mswebdeploy-package",
-  "description": "Create Microsoft(TM) web deploy packages with grunt",
+  "description": "Create Microsoft(TM) web deploy packages with grunt on any platform",
   "version": "0.1.0",
   "homepage": "https://github.com/alphio/grunt-mswebdeploy-package",
   "author": {
-    "name": "NOAH HAMBAYI",
+    "name": "Noah Hambayi",
     "email": "nhambayi@gmail.com",
-    "url": "http://systemreflection.net"
+    "url": "http://alphio.com"
   },
   "repository": {
     "type": "git",
