@@ -29,19 +29,22 @@ module.exports = function(grunt) {
     },
 
     // Configuration to be run (and then tested).
-    mswebdeploy_package: {
-      default_options: {
-        options: {
+    msdeploy: {
+      defualt_options: {
+        options :  {
+          sourcePath : 'node_modules',
+          outputPath : 'build/test/'
         },
         files: {
-          'tmp/default_options': ['test/fixtures/testing', 'test/fixtures/123']
+          'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123']
         }
       },
       custom_options: {
-        options: {
-          separator: ': ',
-          punctuation: ' !!!'
-        },
+          options : {
+          outputPath : 'build/sample/',
+          sourcePath : 'test/',
+          packageName : 'test.zip',
+          },
         files: {
           'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123']
         }
@@ -65,9 +68,9 @@ module.exports = function(grunt) {
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['clean', 'mswebdeploy_package', 'nodeunit']);
+  grunt.registerTask('test', ['clean', 'msdeploy', 'nodeunit']);
 
   // By default, lint and run all tests.
-  grunt.registerTask('default', ['jshint', 'test']);
+  grunt.registerTask('default', ['jshint', 'msdeploy']);
 
 };
