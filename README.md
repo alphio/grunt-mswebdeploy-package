@@ -1,6 +1,9 @@
-# grunt-msdeploy
+# grunt-mswebdeploy
 
-> Create Microsoft(TM) web deploy packages with grunt
+> Create Microsoft(TM) Web Deploy Packages With Grunt on Any Platform
+
+## Introduction
+grunt-mswebdeploy allows you to bundle you site file into a Microsoft(TM) compatible web deploy file that can be used to publish to IIS. It is useful for creating build for JavaScript \ HTML project that are built and publish with Visual Studio Online of TFS.
 
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
@@ -8,7 +11,7 @@ This plugin requires Grunt `~0.4.5`
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
 ```shell
-npm install grunt-msdeploy --save-dev
+npm install grunt-mswebdeploy-package --save-dev
 ```
 
 Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
@@ -17,7 +20,7 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 grunt.loadNpmTasks('grunt-mswebdeploy');
 ```
 
-## The "grunt-mswebdeploy" task
+## The "mswebdeploy_package" task
 
 ### Overview
 In your project's Gruntfile, add a section named `mswebdeploy` to the data object passed into `grunt.initConfig()`.
@@ -35,46 +38,42 @@ grunt.initConfig({
   },
 });
 ```
-
+This sample creates a web deploy package using the files in 'test' in a folder called 'build' named 'test.zip' The folder structure of the source folder will be maintained in the package. There is currently no way to add individual files.
 ### Options
+
+#### options.source
+Type: `String`
+Default value: `'dist/'`
+
+The folder containg the source to package.
 
 #### options.dest
 Type: `String`
-Default value: `'depoy '`
+Default value: `'deploy/'`
 
-A string value that is used to do something with whatever.
+The folder in which the package will be written.
 
-#### options.source
+#### options.package
 Type: `String`
-Default value: `'.'`
+Default value: `'webdeploy.zip`
 
-A string value that is used to do something else with whatever else.
-
-#### options.source
-Type: `String`
-Default value: `'dist'`
-
-A string value that is used to do something else with whatever else.
+The name of the web deploy package
 
 ### Usage Examples
 
 #### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+This example will package all the files in the 'dist' folder into a file called webdeploy.zip and place it in the 'deploy' folder.
 
 ```js
 grunt.initConfig({
   mswebdeploy: {
-    options : {
-          'dest' : 'build/',
-          'source' : 'test',
-          'package' : 'test.zip',
-          },
+    options: {},
   },
 });
 ```
 
 #### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
+This sample creates a web deploy package using the files in 'test' in a folder called 'build' named 'test.zip' The folder structure of the source folder will be maintained in the package. There is currently no way to add individual files.
 
 ```js
 grunt.initConfig({
@@ -95,4 +94,5 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 0.10.0 : Beta Release
-# grunt-msdeploy-package
+0.10.1 : Updated documentation
+# grunt-mswebdeploy
