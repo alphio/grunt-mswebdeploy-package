@@ -18,7 +18,8 @@ module.exports = function(grunt) {
   var mkdirp = require('mkdirp');
   var builder = require('xmlbuilder');
   var _ = require("lodash");
-  
+  var colors = require("colors");
+
   function generateManifestXml(options){
     var system_info_xml = builder.create(
       {'msdeploy.iisApp': {
@@ -28,24 +29,24 @@ module.exports = function(grunt) {
 
         }
       }).end({ pretty: true});
-          
+
     return system_info_xml;
   }
-  
+
   function generateParametersXml(options){
     var archive_xml = builder.create({"parameters" : {
     }
-      
+
     }).end({ pretty: true});
      return archive_xml;
   }
-  
-  grunt.registerMultiTask('mswebdeploy', 
-  'Create Microsoft(TM) web deploy packages with grunt', 
+
+  grunt.registerMultiTask('mswebdeploy',
+  'Create Microsoft(TM) web deploy packages with grunt',
   function() {
       var done = this.async();
       var options = this.options(
-        { 
+        {
           verb : "sync",
           dest : "webdeploy/",
           source : 'dist/',
@@ -53,42 +54,41 @@ module.exports = function(grunt) {
           includeAcls : false,
           enabled : true
         });
-       
+
         if( !_.endsWith(options.source, '/') ){
-          options.source = options.source + "/"; 
+          options.source = options.source + "/";
         }
-        
+
         if(!_.endsWith(options.dest, '/') ){
-          options.dest = options.dest + "/"; 
+          options.dest = options.dest + "/";
         }
-        
+
       if(options.enabled){
-        mkdirp(options.dest, function(err) { 
-            grunt.log.writeln("failed to create folder " + options.dest + " or the directory already exists.");
+        mkdirp(options.dest, function(err) {
+            grunt.log.writeln("WARNING: Failed to create folder '".yellow + options.dest.red.bold + "' or the directory already exists.".yellow);
         });
-        
-        grunt.log.writeln('Creating web deploy package "' + options.dest + options.package + '" from the directory "' + options.source + '"');
-        
+
+        grunt.log.writeln('Creating web deploy package "' + options.dest.magenta + options.package.magenta.bold + '" from the directory "' + options.source.magenta + '"');
+
         var output = fileSystem.createWriteStream(options.dest + options.package);
         var archive = archiver('zip');
-        
+
         output.on('close', function () {
           grunt.log.writeln(archive.pointer() + ' total bytes');
-          grunt.log.writeln(options.dest + options.package + ' created');
+          grunt.log.writeln("Archive '" + options.dest.magenta + options.package.magenta.bold + ", created");
           done(true);
         });
 
         archive.on('error', function(err){
-            grunt.log.writeln(err.toString());
+            grunt.log.writeln(err.toString().red);
             done(false);
         });
 
         archive.pipe(output);
-        grunt.log.writeln('starting archive...');
         archive.directory(options.source);
         archive.append(generateParametersXml(options), { name:'parameters.xml' });
         archive.append( generateManifestXml(options), { name:'manifest.xml' });
-        archive.finalize();      
+        archive.finalize();
       }
   });
 
