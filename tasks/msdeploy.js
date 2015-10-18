@@ -65,7 +65,7 @@ module.exports = function(grunt) {
 
       if(options.enabled){
         mkdirp(options.dest, function(err) {
-            grunt.log.writeln("WARNING: Failed to create folder '".yellow + options.dest.red.bold + "' or the directory already exists.".yellow);
+            grunt.log.writeln("WARN".yellow.inverse + " Failed to create folder '" + options.dest.red.bold + "' or the directory already exists.");
         });
 
         grunt.log.writeln('Creating web deploy package "' + options.dest.magenta + options.package.magenta.bold + '" from the directory "' + options.source.magenta + '"');
@@ -80,7 +80,7 @@ module.exports = function(grunt) {
         });
 
         archive.on('error', function(err){
-            grunt.log.writeln(err.toString().red);
+            grunt.log.writeln("ERROR".red.inverse + " " + err.toString());
             done(false);
         });
 
