@@ -26,16 +26,15 @@ grunt.loadNpmTasks('grunt-mswebdeploy');
 In your project's Gruntfile, add a section named `mswebdeploy` to the data object passed into `grunt.initConfig()`.
 
 ```js
-grunt.initConfig({
-  mswebdeploy: {
-    options: {
+mswebdeploy : {
+    build :{
       options : {
-          'dest' : 'build/',
-          'source' : 'test',
-          'package' : 'test.zip',
+          'dest'    : 'deploy/',
+          'source'  : 'build',
+          'package' : 'webdeploy.zip',
           }
-    }
-  },
+      }
+    },
 });
 ```
 This sample creates a web deploy package using the files in 'test' in a folder called 'build' named 'test.zip' The folder structure of the source folder will be maintained in the package. There is currently no way to add individual files.
