@@ -1,9 +1,9 @@
-# grunt-mswebdeploy
+# grunt-mswebdeploy-package
 
 > Create Microsoft(TM) Web Deploy Packages With Grunt on Any Platform
 
 ## Introduction
-grunt-mswebdeploy allows you to bundle you site file into a Microsoft(TM) compatible web deploy file that can be used to publish to IIS. It is useful for creating build for JavaScript \ HTML project that are built and publish with Visual Studio Online of TFS.
+grunt-mswebdeploy allows you to bundle you site file into a Microsoft(TM) compatible web deploy file that can be used to publish to IIS. It is useful for creating build for JavaScript \ HTML project that are built and publish with Visual Studio Online, Visual Studio Team Services, TFS or and system that supports Web Deploy.
 
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
@@ -95,5 +95,6 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 0.11.0 : Beta Release
 
 0.11.1 : Updated documentation
+0.11.2 : Updated documentation
 
-# grunt-mswebdeploy
+# grunt-mswebdeploy-package
